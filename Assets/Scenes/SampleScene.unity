@@ -407,9 +407,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f97ff0aa42e07f7409c9ea63f37bf45f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pawn: {fileID: 919132149155446097, guid: 179356811d70273449fe867f0b0eea0e, type: 3}
-  blackPawn: {fileID: 919132149155446097, guid: b1041e95c7e545f4cbc1ec4734154c61, type: 3}
-  field: {fileID: 588917105}
+  pawnPrefab: {fileID: 6690289678908748564, guid: 25a1996178b0e0445b8398c8892afd67, type: 3}
+  blackPawnPrefab: {fileID: 5286462342001277814, guid: b0b165d4ca1acf841b2860e9875d183b, type: 3}
+  bluePlatform: {fileID: 588917105}
 --- !u!65 &797115937
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -457,7 +457,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 180.00023}
+  m_AnchoredPosition: {x: 0, y: 195.0002}
   m_SizeDelta: {x: 300, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &920167982
@@ -580,7 +580,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 8, z: 0}
+  m_LocalPosition: {x: 0, y: 9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1591603246}
@@ -601,7 +601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 963194227}
   target: {fileID: 797115935}
-  distanceToTarget: 8
+  distanceToTarget: 9
 --- !u!1 &1071783980
 GameObject:
   m_ObjectHideFlags: 0
