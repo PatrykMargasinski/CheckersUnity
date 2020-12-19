@@ -896,6 +896,7 @@ MonoBehaviour:
   pawnPrefab: {fileID: 7830521358213011968, guid: 557d1bddc1e91384e9b438de13729805, type: 3}
   blackPawnPrefab: {fileID: 1769835587142181154, guid: 7494b7c90c9ffc942987a178554e00b3, type: 3}
   bluePlatform: {fileID: 588917105}
+  gameText: {fileID: 920167982}
 --- !u!4 &1988459583 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8675741666935212982, guid: 67741173ecd90bd4bb88ba9c14a65719, type: 3}

@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Board : MonoBehaviour
 {
     public GameObject pawnPrefab;
     public GameObject blackPawnPrefab;
     public GameObject bluePlatform;
+    public Text gameText;
     private RaycastHit hit;
     private Pawn[,] fields=new Pawn[8,8];
 
@@ -15,6 +17,7 @@ public class Board : MonoBehaviour
     void Start()
     {
         GenerateBoard();
+        SetText("Ruch białego");
         fields[0,0].Promotion();
     }
 
@@ -86,5 +89,14 @@ public class Board : MonoBehaviour
         Pawn destroyingPawn=fields[x,y];
         fields[x,y]=null;
         Destroy(destroyingPawn.gameObject);
+    }
+
+    public void SetText(string text)
+    {
+        gameText.text=text;
+    }
+    public string GetText()
+    {
+        return gameText.text;
     }
 }
