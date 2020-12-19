@@ -5,32 +5,78 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-    public GameObject pawn;
-    public GameObject blackPawn;
-    public GameObject field;
+    public GameObject pawnPrefab;
+    public GameObject blackPawnPrefab;
+    public GameObject bluePlatform;
     private RaycastHit hit;
+    private Pawn[,] fields=new Pawn[8,8];
 
 
     void Start()
     {
-        for(int i=0;i<8;i++)
-        {
-            Instantiate(blackPawn, new Vector3(3.5f-i,0.2f,3.5f-i%2), Quaternion.identity); 
-            Instantiate(pawn, new Vector3(3.5f-i,0.2f,-3.5f+(i+1)%2), Quaternion.identity); 
-        }
+        //white pawns
+        GenerateBoard();
+        DestroyPawn(0,0);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, 25.0f, LayerMask.GetMask("Board")))
         {
-            field.transform.position=new Vector3((float)Math.Floor(hit.point.x/0.5f*0.5f)+0.5f,0.11f,(float)Math.Floor(hit.point.z/0.5f*0.5f)+0.5f);
+            if (Input.GetMouseButtonDown(0))
+            {
+                int x=(int)Math.Floor(hit.point.x+4), y=(int)Math.Floor(hit.point.z+4);
+                if((x+y)%2==0)
+                {
+                    bluePlatform.transform.position=new Vector3((float)Math.Floor(hit.point.x/0.5f*0.5f)+0.5f,0.11f,(float)Math.Floor(hit.point.z/0.5f*0.5f)+0.5f);
+                }
+                Debug.Log(x+" "+y + ((fields[x,y]!=null)? $" {fields[x,y].player.ToString()} pawn":" No pawn"));
+            }
+        }
+    }
+    public void GenerateBoard()
+    {
+        //white pawns
+        for(int i=0;i<8;i++)
+        {
+            GeneratePawn(i,i%2,Player.White);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        //black pawns
+        for(int i=0;i<8;i++)
         {
-            Debug.Log(hit.point.x+" "+hit.point.z);
+            GeneratePawn(i,i%2+6,Player.Black);
         }
+    }
+    public void GeneratePawn(int x, int y, Player player)
+    {
+        GameObject temp;
+        if(player==Player.White)temp=pawnPrefab;
+        else temp=blackPawnPrefab;
+        Pawn pawnInstance=Instantiate(temp, new Vector3(x-3.5f,0.2f,y-3.5f), Quaternion.identity).GetComponent<Pawn>();
+        pawnInstance.player=player;
+        fields[x,y]=pawnInstance;
+    }
+
+
+    public void MovePawn(int xFrom,int yFrom,int xTo, int yTo)
+    {
+        int xMove=xTo-xFrom;
+        int yMove=yTo-yFrom;
+        Pawn temp=fields[xFrom,yFrom];
+        fields[xFrom,yFrom]=null;
+        fields[xTo,yTo]=temp;
+        Vector3 oldPosition=temp.gameObject.transform.position;
+        Vector3 newPosition=new Vector3(oldPosition.x+=xMove,0.1f,oldPosition.z+=yMove);
+        temp.transform.position=newPosition;
+    }
+
+    public void DestroyPawn(int x, int y)
+    {
+        Pawn destroyingPawn=fields[x,y];
+        fields[x,y]=null;
+
+        Destroy(destroyingPawn.gameObject);
+
     }
 }
