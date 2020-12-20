@@ -24,7 +24,6 @@ public class Board : MonoBehaviour
     {
         GenerateBoard();
         SetText("Ruch białego");
-        //SetBluePlatformPosition(0,0);
     }
 
     void Update()
@@ -104,6 +103,7 @@ public class Board : MonoBehaviour
         }
 
     }
+
     public void MoveToClickedDestination()
     {
         int x = (int)Math.Floor(hit.point.x + 4), y = (int)Math.Floor(hit.point.z + 4);
@@ -117,7 +117,7 @@ public class Board : MonoBehaviour
 
         if (!IsPawnHere(x, y))
         {
-            if (CheckIfYouCanMoveThere(previousX, previousY, x, y))
+            if (CheckIfYouCanMoveThere(previousX, previousY, x, y)&&!CheckIfYouCanMakeAnyStrikeWithAnyPawn())
             {
                 MovePawn(previousX, previousY, x, y);
                 isPawnClicked = false;
@@ -129,8 +129,7 @@ public class Board : MonoBehaviour
             {
                 MovePawn(previousX, previousY, x, y);
                 DestroyPawn((previousX + x) / 2, (previousY + y) / 2);
-                ChangeBluePlatformLocation(x,y);
-                //tutaj wstaw wywolanie ChangeBluePlatformLocation(x,y); i powinno być git
+                ChangeBluePlatformLocation(x, y);
                 previousX = x;
                 previousY = y;
                 if (!CheckIfYouCanMakeAnyStrike(previousX, previousY))
@@ -147,6 +146,26 @@ public class Board : MonoBehaviour
         }
     }
 
+    public bool CheckIfYouCanMakeAnyStrikeWithAnyPawn()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                if (fields[i, j] != null)
+                {
+                    if ((fields[i, j].player.ToString() == "White" && gracz == Player.White) || (fields[i, j].player.ToString() == "Black" && gracz == Player.Black))
+                    {
+                        if (CheckIfYouCanMakeAnyStrike(i, j))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
     public bool CheckIfYouCanMakeAnyStrike(int previousX, int previousY)
     {
 
@@ -360,10 +379,8 @@ public class Board : MonoBehaviour
     {
         return gameText.text;
     }
-
     public void ChangeBluePlatformLocation(int x, int y)
     {
-        bluePlatform.transform.position=new Vector3(x-3.5f,0.11f,y-3.5f);
+        bluePlatform.transform.position = new Vector3(x - 3.5f, 0.11f, y - 3.5f);
     }
-
 }
