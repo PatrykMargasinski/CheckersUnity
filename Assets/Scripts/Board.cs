@@ -331,10 +331,27 @@ public class Board : MonoBehaviour
         fields[xFrom,yFrom]=null;
         fields[xTo,yTo]=temp;
         Vector3 oldPosition=temp.gameObject.transform.position;
-        Vector3 newPosition=new Vector3(oldPosition.x+=xMove,0.2f,oldPosition.z+=yMove);
-        temp.transform.position=newPosition;
+        Vector3 newPosition=new Vector3(oldPosition.x+xMove,0.2f,oldPosition.z+yMove);
+        StopCoroutine("Movement");
+        StartCoroutine(Movement(temp.gameObject,newPosition));
+        //temp.transform.position=newPosition;
         PromotePawnIfPossible(xTo, yTo);
     }
+
+    IEnumerator Movement (GameObject pawn, Vector3 target)
+    {
+        float stepX=(pawn.transform.position.x-target.x)/40f;
+        float stepY=(pawn.transform.position.z-target.z)/40f;
+        while(Vector3.Distance(pawn.transform.position, target) > 0.1f)
+        {
+            pawn.transform.position = new Vector3(pawn.transform.position.x-stepX,0.2f,pawn.transform.position.z-stepY);
+            yield return null;
+        }
+        pawn.transform.position=target;
+    }
+
+
+
     public void PromotePawnIfPossible(int x, int y)
     {
         if (gracz == Player.White)
