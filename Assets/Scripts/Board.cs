@@ -9,6 +9,7 @@ public class Board : MonoBehaviour
     public GameObject pawnPrefab;
     public GameObject blackPawnPrefab;
     public GameObject bluePlatform;
+    public GameObject redPlatform;
     public Text gameText;
     private RaycastHit hit;
     private Pawn[,] fields=new Pawn[8,8];
@@ -332,13 +333,13 @@ public class Board : MonoBehaviour
         fields[xTo,yTo]=temp;
         Vector3 oldPosition=temp.gameObject.transform.position;
         Vector3 newPosition=new Vector3(oldPosition.x+xMove,0.2f,oldPosition.z+yMove);
-        StopCoroutine("Movement");
-        StartCoroutine(Movement(temp.gameObject,newPosition));
+        StopCoroutine("MovementAnimation");
+        StartCoroutine(MovementAnimation(temp.gameObject,newPosition));
         //temp.transform.position=newPosition;
         PromotePawnIfPossible(xTo, yTo);
     }
 
-    IEnumerator Movement (GameObject pawn, Vector3 target)
+    IEnumerator MovementAnimation (GameObject pawn, Vector3 target)
     {
         float stepX=(pawn.transform.position.x-target.x)/40f;
         float stepY=(pawn.transform.position.z-target.z)/40f;
@@ -399,5 +400,10 @@ public class Board : MonoBehaviour
     public void ChangeBluePlatformLocation(int x, int y)
     {
         bluePlatform.transform.position = new Vector3(x - 3.5f, 0.11f, y - 3.5f);
+    }
+
+    public void ChangeRedPlatformLocation(int x, int y)
+    {
+        redPlatform.transform.position = new Vector3(x - 3.5f, 0.11f, y - 3.5f);
     }
 }
