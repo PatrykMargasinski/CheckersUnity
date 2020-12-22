@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 588917107}
   - component: {fileID: 588917106}
   m_Layer: 0
-  m_Name: ActiveField
+  m_Name: BluePlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
