@@ -3,6 +3,9 @@
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField] private Camera cam;
+    [SerializeField] private Camera whiteCam;
+    [SerializeField] private Camera blackCam;
+    [SerializeField] private Camera upCam;
     [SerializeField] private Transform target;
     [SerializeField] private float distanceToTarget = 10;
 
@@ -31,6 +34,22 @@ public class CameraMovement : MonoBehaviour
             cam.transform.Translate(new Vector3(0, 0, -distanceToTarget));
 
             previousPosition = newPosition;
+        }
+
+        if(Input.GetKeyUp(KeyCode.Alpha1))
+        {
+            cam.transform.position=upCam.transform.position;
+            cam.transform.rotation=upCam.transform.rotation;
+        }
+        else if(Input.GetKeyUp(KeyCode.Alpha2))
+        {
+            cam.transform.position=whiteCam.transform.position;
+            cam.transform.rotation=whiteCam.transform.rotation;
+        }
+        else if(Input.GetKeyUp(KeyCode.Alpha3))
+        {
+            cam.transform.position=blackCam.transform.position;
+            cam.transform.rotation=blackCam.transform.rotation;
         }
     }
 }
