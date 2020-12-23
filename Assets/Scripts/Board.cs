@@ -9,7 +9,7 @@ public class Board : MonoBehaviour
     public GameObject pawnPrefab;
     public GameObject blackPawnPrefab;
     public GameObject bluePlatform;
-    public GameObject redPlatform;
+    public GameObject greenPlatform;
     public Text gameText;
     private RaycastHit hit;
     private Pawn[,] fields=new Pawn[8,8];
@@ -402,8 +402,8 @@ public class Board : MonoBehaviour
         bluePlatform.transform.position = new Vector3(x - 3.5f, 0.11f, y - 3.5f);
     }
 
-    public void ChangeRedPlatformLocation(int x, int y)
+    public void ChangeGreenPlatformLocation(int x, int y)
     {
-        redPlatform.transform.position = new Vector3(x - 3.5f, 0.11f, y - 3.5f);
+        greenPlatform.transform.position = new Vector3(x - 3.5f, 0.11f, y - 3.5f);
     }
 }
